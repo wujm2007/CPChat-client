@@ -11,6 +11,7 @@ body {
     color: #4d4d4d;
     font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, \\5fae\8F6F\96c5\9ED1, Arial, sans-serif;
     font-size: 10pt;
+    border-radius: 3px;
 }
 
 .m-message ul li div.main .avatar {
@@ -31,7 +32,6 @@ ul {
     overflow: hidden;
     width: 100%;
     height: calc(100% - 12px - 1.2em);
-    border-radius: 3px;
 }
 
 #chat .main {

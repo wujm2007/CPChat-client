@@ -4,7 +4,8 @@
   "description": "A native chat application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package": "electron-packager ."
   },
   "author": "wujm2007",
   "devDependencies": {
