@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CPChat</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/title-bar.css">
+</head>
+
+<body>
+<div class="browser">
+    <div class="title-bar">
+        <div class="btns">
+            <div class="close"></div>
+            <div class="min"></div>
+            <div class="max"></div>
+        </div>
+    </div>
+</div>
+<div id="chat">
+    <div class="main">
+        <div class="m-header">
+            <span id="room-name">Room</span>
+        </div>
+        <div class="m-message">
+            <ul id="dialogue-container">
+                <li>
+                    <p class="time"><span>10:44</span></p>
+                    <div class="main"><img class="avatar" src="images/avatar2.jpeg">
+                        <div class="text">啦啦啦</div>
+                    </div>
+                </li>
+                <li>
+                    <p class="time"><span>10:45</span></p>
+                    <div class="main self"><img class="avatar" src="images/avatar1.jpeg">
+                        <div class="text">嘿嘿</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="m-text">
+            <div class="toolbar" id="tool_bar">
+                <a>
+                    <div class="webuploader-pick"></div>
+                    <div style="display: inline-block;">
+                        <input type="file" name="file" id="post" style="line-height: 30px;"
+                               class="webuploader-element-invisible">
+                        <label class="file-icon" onclick="post.click()"></label>
+                    </div>
+                </a>
+                <div class="select-style" style="display: inline-block; margin-left: 8px;">
+                    <select id="userList"></select>
+                </div>
+            </div>
+            <textarea id="chatText"></textarea>
+            <div class="action">
+                <span class="desc">按下Ctrl+Enter换行</span>
+                <a class="btn btn_send" id="btnText">发送</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    // You can also require other files to run in this process
+    require('./client.js')
+</script>
+</html>
