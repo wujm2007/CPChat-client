@@ -6,7 +6,6 @@ const io = require("socket.io-client");
 const msgHandler = require("./clientUtil");
 
 const {ipcRenderer} = require('electron');
-let isMaximized = false;
 
 const SERVER_KEY = cryptoUtil.importKey(`-----BEGIN PUBLIC KEY-----
 MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIkL4Lx9lEjL09SblZrsXF+41r0ncaX3
@@ -81,7 +80,8 @@ $(function () {
                     append(createDownload(msg.sender, msg.fileName, blob));
                 });
                 break;
-            case "text":
+            case
+            "text":
                 append(createMessage(msg.sender, msg.text));
                 break;
             default:
@@ -201,21 +201,20 @@ $(function () {
         }
     });
 
+    $(document).on("dblclick", ".title-bar", function () {
+        ipcRenderer.send('maximize-window');
+    });
+
     $(document).on("click", ".close", function () {
         ipcRenderer.send('close-window');
     });
 
     $(document).on("click", ".max", function () {
-        if (isMaximized) {
-            ipcRenderer.send('original-window');
-        } else {
-            ipcRenderer.send('show-window');
-        }
-        isMaximized = !isMaximized;
+        ipcRenderer.send('maximize-window');
     });
 
     $(document).on("click", ".min", function () {
-        ipcRenderer.send('hide-window');
+        ipcRenderer.send('minimize-window');
     });
 });
 

@@ -9,16 +9,33 @@
 </head>
 
 <body>
-<div class="browser">
-    <div class="title-bar">
-        <div class="btns">
-            <div class="close"></div>
-            <div class="min"></div>
-            <div class="max"></div>
+<div id="chat" class="noselect">
+    <div class="sidebar">
+
+        <div class="browser">
+            <div class="title-bar">
+                <div class="btns">
+                    <div class="close"></div>
+                    <div class="min"></div>
+                    <div class="max"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <header><img class="avatar" width="40" height="40" alt="User" src="images/avatar1.jpeg">
+                <p class="name">User</p></header>
+            <footer><input class="search" type="text" placeholder="search user..."></footer>
+        </div>
+        <div class="list">
+            <ul>
+                <li class="active"><img class="avatar" width="30" height="30" alt="Broadcase" src="images/avatar2.jpeg">
+                    <p class="name">Broadcase</p></li>
+                <li><img class="avatar" width="30" height="30" alt="Guest" src="images/avatar2.jpeg">
+                    <p class="name">Guest</p></li>
+            </ul>
         </div>
     </div>
-</div>
-<div id="chat">
+
     <div class="main">
         <div class="m-header">
             <span id="room-name">Room</span>

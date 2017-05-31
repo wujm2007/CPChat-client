@@ -12,7 +12,7 @@ let mainWindow;
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 500,
+        width: 700,
         height: 600,
         resizable: false,
         transparent: true,
@@ -38,20 +38,18 @@ function createWindow() {
     });
 
     ipcMain.on('close-window', () => {
-        // mainWindow.close();
         app.quit();
     });
 
-    ipcMain.on('hide-window', () => {
+    ipcMain.on('minimize-window', () => {
         mainWindow.minimize();
     });
 
-    ipcMain.on('show-window', () => {
-        mainWindow.maximize();
-    });
-
-    ipcMain.on('original-window', () => {
-        mainWindow.unmaximize();
+    ipcMain.on('maximize-window', () => {
+        if (!mainWindow.isMaximized())
+            mainWindow.maximize();
+        else
+            mainWindow.unmaximize();
     });
 }
 
