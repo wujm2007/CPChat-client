@@ -24,15 +24,14 @@
         <div class="card">
             <header><img class="avatar" :alt="nickName" src="images/avatar1.jpeg">
                 <p class="name">{{ nickName }}</p></header>
-            <footer><input class="search" type="text" placeholder="search user..."></footer>
+            <footer><input class="search" type="text" placeholder="search user..." v-model="keyword"></footer>
         </div>
         <div class="list">
             <ul>
-                <li v-for="user in users" :class="{ 'active': user === selectedUser }"
-                    v-on:click="select(user)">
-                    <img class="avatar" :alt="user" src="images/avatar1.jpeg"
-                         v-if="user === nickName">
-                    <img class="avatar" :alt="user" src="images/avatar2.jpeg" v-else>
+                <li v-for="user in filteredUsers" :class="{ active: user === selectedUser }"
+                    @click="selectedUser = user">
+                    <img class="avatar" :alt="user"
+                         :src="user === nickName? 'images/avatar1.jpeg':'images/avatar2.jpeg'">
                     <p class="name">{{ user }}</p>
                 </li>
             </ul>
@@ -46,11 +45,10 @@
         <div class="m-message">
             <ul id="dialogue-container">
                 <li v-for="msg in messages">
-                    <div class="main" :class="{ 'self': msg.sender === nickName }">
-                        <img class="avatar" :alt="msg.sender" src="images/avatar1.jpeg"
-                             v-if="msg.sender === nickName">
-                        <img class="avatar" :alt="msg.sender" src="images/avatar2.jpeg" v-else>
-                        <div class="text" v-html="msg.text">{{ msg.text }}</div>
+                    <div class="main" :class="{ 'self': msg.self }">
+                        <img class="avatar" :alt="msg.sender"
+                             :src="msg.self? 'images/avatar1.jpeg':'images/avatar2.jpeg'">
+                        <div class="text" v-html="msg.text"></div>
                     </div>
                 </li>
             </ul>
@@ -66,10 +64,8 @@
                     </div>
                 </a>
                 <div class="select-style" style="display: inline-block; margin-left: 8px;">
-                    <select id="userList">
-                        <option v-for="user in userList">
-                            {{ user }}
-                        </option>
+                    <select id="userList" :value="selectedUser">
+                        <option v-for="user in userList">{{ user }}</option>
                     </select>
                 </div>
             </div>

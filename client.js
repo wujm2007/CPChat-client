@@ -16,7 +16,6 @@ mrVSIqUXrNoK7k38md/9vl2W5nAeGe5d6c4WlALxjH8KzBqa90o4WUUCAwEAAQ==
 const broadcast = "Broadcast";
 
 $(function () {
-
     function nickName(newName) {
         if (newName)
             appChat.nickName = newName;
@@ -31,9 +30,11 @@ $(function () {
             messages.set(key, []);
             appChat.update();
         }
-        messages.get(key).push({sender: sender, recipient: recipient, text: text});
+        messages.get(key).push({sender: sender, recipient: recipient, text: text, self: sender === nickName()});
+        if (!appChat.messages)
+            appChat.messages = messages.get(appChat.selectedUser);
         if (sender === nickName())
-            appChat.select(recipient);
+            appChat.selectedUser = recipient;
     };
 
     let appChat = new Vue({
@@ -42,25 +43,34 @@ $(function () {
             nickName: null,
             messages: null,
             users: null,
-            selectedUser: null,
+            filteredUsers: null,
             userList: null,
+            selectedUser: broadcast,
+            keyword: null
         },
         methods: {
-            select: function (user) {
-                this.selectedUser = user;
-                this.messages = messages.get(this.selectedUser);
+            update: function () {
+                this.users = Array.from(messages.keys());
+            }
+        }, watch: {
+            selectedUser: function (newUser) {
+                this.messages = messages.get(newUser);
 
                 // deal with asynchronous update
                 this.$nextTick(function () {
                     const container = $("#dialogue-container").parent();
                     container.scrollTop(container[0].scrollHeight);
                 });
-
-                $("#userList").val(this.selectedUser);
-                return this.selectedUser;
             },
-            update: function () {
-                this.users = Array.from(messages.keys());
+            users: function () {
+                this.filteredUsers = this.users;
+            },
+            keyword: function () {
+                const keyword = this.keyword;
+                this.filteredUsers = this.users.filter(function (u) {
+                    console.log(u, keyword, u.includes(keyword));
+                    return u.includes(keyword);
+                });
             }
         }
     });
@@ -228,6 +238,7 @@ $(function () {
     $(document).on("click", ".min", function () {
         ipcRenderer.send('minimize-window');
     });
-});
+})
+;
 
 module.exports.broadcast = broadcast;
