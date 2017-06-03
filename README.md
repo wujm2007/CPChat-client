@@ -1,5 +1,5 @@
 # CPChat-client
-A native client for CPChat built with Electron.
+A native client for [CPChat](https://github.com/wujm2007/CPChat) built with Electron.
 
 ## How to Run?
 
