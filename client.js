@@ -57,17 +57,18 @@ window.onload = function () {
     let vm = new Vue({
         el: '#chat',
         data: {
-            messages: new Map(),
-            nickname: null,
-            chatMessages: null,
-            chatList: null,
-            userList: null,
-            selectedUser: broadcast,
-            keyword: null,
-            textInput: null,
-            room: null
+            messages: new Map(),        // all messages (user -> array of messages)
+            nickname: null,             // your nickname
+            chatMessages: null,         // messages on the current page
+            chatList: null,             // all the users with whom you're chatting
+            userList: null,             // all the online users
+            selectedUser: broadcast,    // the user you select
+            keyword: null,              // keyword for the search of `users`
+            textInput: null,            // user's input text
+            room: null                  // current chatting room
         },
         methods: {
+            // push a message into `messages`
             pushMessage: function (sender, recipient, text) {
                 const key = sender === this.nickname ? recipient : recipient === broadcast ? broadcast : sender;
                 if (!this.messages.has(key)) {
@@ -85,15 +86,18 @@ window.onload = function () {
                 if (sender === this.nickname)
                     this.selectedUser = recipient;
             },
+            // should be called when `chatList` should be updated
             updateChatList: function () {
                 this.chatList = Array.from(this.messages.keys());
             },
+            // handler for text button click
             textBtnClick: function () {
                 if (this.textInput !== null && this.textInput !== "") {
                     msgRequester["text-message"](this.textInput, this.selectedUser);
                     this.textInput = "";
                 }
             },
+            // handler for text enter
             textEnter: function (e) {
                 if (e.which === 13) {
                     e.preventDefault();
@@ -103,6 +107,7 @@ window.onload = function () {
                         this.textBtnClick();
                 }
             },
+            // handler for input file change
             postChange: function () {
                 const files = document.querySelector("#post").files;
                 const selectedUser = this.selectedUser;
@@ -126,6 +131,7 @@ window.onload = function () {
                 ipcRenderer.send('minimize-window');
             }
         },
+        // filtered `users` according to `keyword`
         computed: {
             filteredUsers: function () {
                 const keyword = this.keyword ? this.keyword.toLowerCase() : "";
@@ -137,7 +143,6 @@ window.onload = function () {
         },
         watch: {
             selectedUser: function (newUser) {
-                console.log("change to ", newUser);
                 this.chatMessages = this.messages.get(newUser);
             },
             chatMessages: function () {

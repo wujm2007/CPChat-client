@@ -46,7 +46,7 @@ module.exports = {
             if (cryptoUtil.hashcode(data.payload) === hash && __randomN - 1 === payload.n)
                 __sessionKey = cryptoUtil.generateSessionKey(__randomBytes, Buffer.from(payload.bytes));
             else
-                console.log("invalid server hello");
+                console.error("invalid server hello");
         },
 
         "handle": function (data) {
